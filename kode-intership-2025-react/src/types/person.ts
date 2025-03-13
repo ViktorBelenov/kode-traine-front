@@ -1,4 +1,4 @@
-enum Department {
+export enum Department {
     ANDROID = "android",
     IOS = "ios",
     DESIGN = "design",
@@ -25,3 +25,4 @@ export type Person = {
         phone: string
 
 }
+
