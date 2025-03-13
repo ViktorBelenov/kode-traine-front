@@ -105,26 +105,16 @@ img {
   position: relative;
 }
 
-.search__field::after{
-  content:'';
-  width:20px;
-  height: 20px;
-  background-image: url(svg/search.svg);
-
+.search__button {
   position: absolute;
-  left: 14px;
-  top:12px;
+  top: 10px;
 }
 
-.search__field::before{
-  content:'';
-  width:20px;
-  height: 20px;
-  background-image: url(svg/list.svg);
-
-  position: absolute;
-  right: 14px;
-  top:12px;
+.search__button-search {
+  left:10px;
+}
+.search__button-list {
+  right:10px;
 }
 
 .employee-list__wrapper {
