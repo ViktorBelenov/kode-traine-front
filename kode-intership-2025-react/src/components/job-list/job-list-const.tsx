@@ -1,62 +1,63 @@
 import { Department } from "../../types/person";
 
-type Filter = Department | 'Все';
+
+import { TFilter } from "../../types/person";
 
 type Job = {
     active:boolean;
     title: string;
 }
 
-const Filters: Record<Filter, Job> = {
-    Все:{
+const Filters: Record<TFilter, Job> = {
+    all:{
         active:true,
         title: 'Все'
     },
-    design:{
+    [Department.DESIGN]:{
         active:true,
         title: 'Designers'
     },
-    analytics:{
+    [Department.ANALYTICS]:{
         active:true,
         title: 'Analysts'
     },
-    management:{
+    [Department.MANAGEMENT]:{
         active:true,
         title: 'Managers'
     },
-    ios:{
+    [Department.IOS]:{
         active:true,
         title: 'iOS'
     },
-    android:{
+    [Department.ANDROID]:{
         active:true,
         title: 'Android'
     },
-    qa:{
+    [Department.QA]:{
         active:false,
         title: 'qa'
     },
-    frontend:{
+    [Department.FRONTEND]:{
         active:false,
         title: 'frontend'
     },
-    hr:{
+    [Department.HR]:{
         active:false,
         title: 'hr'
     },
-    back_office:{
+    [Department.BACK_OFFICE]:{
         active:false,
         title: 'back_office'
     },
-    backend:{
+    [Department.BACKEND]:{
         active:false,
         title: 'backend'
     },
-    support:{
+    [Department.SUPPORT]:{
         active:false,
         title: 'support'
     },
-    pr:{ 
+    [Department.PR]:{ 
         active: false,
         title: "PR" 
     }

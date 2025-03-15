@@ -4,10 +4,8 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchPeople } from "../../store/peopleSlice";
 
 
-
 import JobList from "../job-list/job-list";
 import Card from "../card/card";
-
 
 
 
@@ -16,13 +14,10 @@ function CardList ():JSX.Element {
     const { people } = useAppSelector((state) => state.people);
   
     useEffect(() => {
-      dispatch(fetchPeople());
+      dispatch(fetchPeople('all'));
     }, [dispatch]);
+
   
-
-    console.log(people);
-
-
     return (
     <main>
         <section className="employee-list">

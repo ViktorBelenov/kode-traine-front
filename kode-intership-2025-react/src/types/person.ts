@@ -26,3 +26,5 @@ export type Person = {
 
 }
 
+
+export type TFilter = Department | 'all';
