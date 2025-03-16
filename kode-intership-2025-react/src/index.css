@@ -299,3 +299,14 @@ padding: 8px 12px;
 .radio__input:checked + .radio__control-mark {
   background-color: #6534FF;
 }
+
+
+.employee-list__card-birthdate {
+  margin-left: auto;
+}
+
+.employee-list__card-birthdate-text {
+  font-size: 15px;
+  font-weight: 400;
+  color:#55555C;
+}
