@@ -1,6 +1,6 @@
 // import { useState } from 'react'
 import Search from './components/search/search'
-import CardList from './components/card-list/card-list'
+import MainContent from './components/main-content/main-content'
 
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Search />
-      <CardList />
+      <MainContent />
     </>
   )
 }
