@@ -1,15 +1,29 @@
 import { JSX } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+
+import { TSortBy } from "../../types/sort";
+
+import { setSortBy } from "../../store/peopleSlice";
 
 type SortPopupProps = {
     handelShowHideSortWindow:()=>void;
 }
 
-function SortPopup({handelShowHideSortWindow}:SortPopupProps):JSX.Element {
+function SortPopup({handelShowHideSortWindow: handleShowHideSortWindow}:SortPopupProps):JSX.Element {
+
+    const dispatch = useAppDispatch();
+    const sortBy = useAppSelector((state) => state.people.sortBy);
+
+    const handleFilterChange = (sortBy:TSortBy) => {
+        dispatch(setSortBy(sortBy));
+        handleShowHideSortWindow();
+    };
+
     return (
         <div className="modal-container">
         <div className="modal-sort modal">
           <h1 className="modal-title">Сортировка</h1>
-          <button className="modal-close-button" onClick={handelShowHideSortWindow}>
+          <button className="modal-close-button" onClick={handleShowHideSortWindow}>
             <span className="visually-hidden">Закрыть окно</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -29,11 +43,13 @@ function SortPopup({handelShowHideSortWindow}:SortPopupProps):JSX.Element {
           <ul className="modal-sort-list">
             <li className="modal-sort-item">
               <label className="radio form__type-radio-first">
-                <input
+              <input
                   className="radio__input visually-hidden"
                   type="radio"
-                  name="type"
-                  defaultValue="alph"
+                  name="sort"
+                  value="firstName"
+                  checked={sortBy === "firstName"}
+                  onChange={() => handleFilterChange("firstName")}
                 />
                 <span className="radio__control-mark" />
                 <span className="radio__description">По алфавиту</span>
@@ -41,11 +57,13 @@ function SortPopup({handelShowHideSortWindow}:SortPopupProps):JSX.Element {
             </li>
             <li>
               <label className="radio form__type-radio-second">
-                <input
+              <input
                   className="radio__input visually-hidden"
                   type="radio"
-                  name="type"
-                  defaultValue="birth"
+                  name="sort"
+                  value="birthday"
+                  checked={sortBy === "birthday"}
+                  onChange={() => handleFilterChange("birthday")}
                 />
                 <span className="radio__control-mark" />
                 <span className="radio__description">По дню рождения</span>

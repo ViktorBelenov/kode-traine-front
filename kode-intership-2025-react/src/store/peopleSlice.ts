@@ -5,17 +5,19 @@ import axios from "axios";
 
 import { Person } from "../types/person";
 
-
 import { ALL_USERS_END_POINT } from "../const";
 
 import { TFilter } from "../types/person";
+import { TSortBy } from "../types/sort";
 
 type FilterBy = TFilter;
+
 
 type PeopleState = {
     people: Person[];
     status: "idle" | "loading" | "succeeded" | "failed";
     filterBy: FilterBy;
+    sortBy: TSortBy;
 }
 
 type ResponseType = {
@@ -27,10 +29,23 @@ export const fetchPeople = createAsyncThunk("people/fetchPeople", async (filterB
     return response.data.items;
   });
 
+const sortPeople = (type:Exclude<TSortBy, "none">, people:Person[]):Person[] => {
+    return people.sort((a, b) => {
+      if (a[type] > b[type]) {
+        return 1;
+      }
+      if (a[type] < b[type]) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+
 const initialState: PeopleState = {
     people: [],
     status: "idle",
     filterBy: "all",
+    sortBy: "none"
   };
 
   const peopleSlice = createSlice({
@@ -39,6 +54,10 @@ const initialState: PeopleState = {
     reducers: {
       setFilterBy: (state, action) => {
         state.filterBy = action.payload;
+      },
+      setSortBy: (state, action) => {
+        state.sortBy = action.payload;
+        state.people = sortPeople(action.payload, state.people);
       },
     },
     extraReducers: (builder) => {
@@ -57,4 +76,5 @@ const initialState: PeopleState = {
   });
 
   export const { setFilterBy } = peopleSlice.actions;
+  export const { setSortBy } = peopleSlice.actions;
   export default peopleSlice.reducer;

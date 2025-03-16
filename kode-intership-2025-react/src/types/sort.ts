@@ -1,0 +1,1 @@
+export type TSortBy = "none" |"birthday" | "firstName";
