@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setSortBy, fetchPeople } from "../../store/peopleSlice";
+import { setFilterBy, fetchPeople } from "../../store/peopleSlice";
 
 import CurrentFilters from "./job-list-const";
 import { TFilter } from "../../types/person";
@@ -9,10 +9,10 @@ import { TFilter } from "../../types/person";
 function JobList():JSX.Element {
 
   const dispatch = useAppDispatch();
-  const sortBy = useAppSelector((state) => state.people.sortBy);
+  const sortBy = useAppSelector((state) => state.people.filterBy);
 
-  const handleSortChange = (sortBy: TFilter) => {
-    dispatch(setSortBy(sortBy));
+  const handleFilterChange = (sortBy: TFilter) => {
+    dispatch(setFilterBy(sortBy));
     dispatch(fetchPeople(sortBy));
 };
 
@@ -20,7 +20,7 @@ function JobList():JSX.Element {
     <ul className="employee-list__job-list">
         {CurrentFilters
         .map(([key, value]) => (
-          <li key={key} className={`employee-list__job-item ${key === sortBy ? 'employee-list__job-item--active':''}`} onClick={() => handleSortChange(key as TFilter)}>
+          <li key={key} className={`employee-list__job-item ${key === sortBy ? 'employee-list__job-item--active':''}`} onClick={() => handleFilterChange(key as TFilter)}>
             {value.title}
           </li>
         ))}

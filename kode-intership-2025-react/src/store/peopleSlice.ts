@@ -10,35 +10,35 @@ import { ALL_USERS_END_POINT } from "../const";
 
 import { TFilter } from "../types/person";
 
-type SortBy = TFilter;
+type FilterBy = TFilter;
 
 type PeopleState = {
     people: Person[];
     status: "idle" | "loading" | "succeeded" | "failed";
-    sortBy: SortBy;
+    filterBy: FilterBy;
 }
 
 type ResponseType = {
   items: Person[];
 }
 
-export const fetchPeople = createAsyncThunk("people/fetchPeople", async (sortBy: SortBy) => {
-    const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${sortBy}`);
+export const fetchPeople = createAsyncThunk("people/fetchPeople", async (filterBy: FilterBy) => {
+    const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${filterBy}`);
     return response.data.items;
   });
 
 const initialState: PeopleState = {
     people: [],
     status: "idle",
-    sortBy: "all",
+    filterBy: "all",
   };
 
   const peopleSlice = createSlice({
     name: "people",
     initialState,
     reducers: {
-      setSortBy: (state, action) => {
-        state.sortBy = action.payload;
+      setFilterBy: (state, action) => {
+        state.filterBy = action.payload;
       },
     },
     extraReducers: (builder) => {
@@ -56,5 +56,5 @@ const initialState: PeopleState = {
     },
   });
 
-  export const { setSortBy } = peopleSlice.actions;
+  export const { setFilterBy } = peopleSlice.actions;
   export default peopleSlice.reducer;
