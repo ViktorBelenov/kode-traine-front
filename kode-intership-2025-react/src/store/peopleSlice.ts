@@ -29,7 +29,11 @@ export const fetchPeople = createAsyncThunk("people/fetchPeople", async (filterB
     return response.data.items;
   });
 
-const sortPeople = (type:Exclude<TSortBy, "none">, people:Person[]):Person[] => {
+const sortPeople = (type:TSortBy, people:Person[]):Person[] => {
+    if(type === 'none') {
+      return people;
+    }
+
     return people.sort((a, b) => {
       if (a[type] > b[type]) {
         return 1;
@@ -45,7 +49,7 @@ const initialState: PeopleState = {
     people: [],
     status: "idle",
     filterBy: "all",
-    sortBy: "none"
+    sortBy: "firstName"
   };
 
   const peopleSlice = createSlice({
@@ -68,6 +72,7 @@ const initialState: PeopleState = {
         .addCase(fetchPeople.fulfilled, (state, action) => {
           state.status = "succeeded";
           state.people = action.payload;
+          state.people = sortPeople(state.sortBy, state.people);
         })
         .addCase(fetchPeople.rejected, (state) => {
           state.status = "failed";

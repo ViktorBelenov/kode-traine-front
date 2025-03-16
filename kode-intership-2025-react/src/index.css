@@ -310,3 +310,24 @@ padding: 8px 12px;
   font-weight: 400;
   color:#55555C;
 }
+
+.divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0 15px;
+}
+
+.divider-line {
+  flex-grow: 1;
+
+  height: 1px;
+  background-color: #C3C3C6;
+}
+
+.divider-text {
+margin: 0 15px;
+font-size: 15px;
+font-weight: 500;
+color: #C3C3C6;
+}
