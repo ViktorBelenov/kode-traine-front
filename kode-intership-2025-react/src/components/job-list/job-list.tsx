@@ -9,18 +9,18 @@ import { TFilter } from "../../types/person";
 function JobList():JSX.Element {
 
   const dispatch = useAppDispatch();
-  const sortBy = useAppSelector((state) => state.people.filterBy);
+  const filterBy = useAppSelector((state) => state.people.filterBy);
 
-  const handleFilterChange = (sortBy: TFilter) => {
-    dispatch(setFilterBy(sortBy));
-    dispatch(fetchPeople(sortBy));
+  const handleFilterChange = (filterBy: TFilter) => {
+    dispatch(setFilterBy(filterBy));
+    dispatch(fetchPeople(filterBy));
 };
 
     return (
     <ul className="employee-list__job-list">
         {CurrentFilters
         .map(([key, value]) => (
-          <li key={key} className={`employee-list__job-item ${key === sortBy ? 'employee-list__job-item--active':''}`} onClick={() => handleFilterChange(key as TFilter)}>
+          <li key={key} className={`employee-list__job-item ${key === filterBy ? 'employee-list__job-item--active':''}`} onClick={() => handleFilterChange(key as TFilter)}>
             {value.title}
           </li>
         ))}
