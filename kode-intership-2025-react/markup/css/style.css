@@ -321,3 +321,29 @@ img {
   .radio__input:focus + .radio__control-mark {
     outline: 2px solid yellow;
   } */
+
+
+  .employee-error {
+    margin-top: 133px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap:12px;
+  }
+
+  .employee-error__title {
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .employee-error__promice {
+    font-size: 16px;
+    font-weight: 400;
+    color: #97979B;
+  }
+  .employee-error__button {
+    font-size: 16px;
+    font-weight: 600;
+    color:#6534FF;
+  }
