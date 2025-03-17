@@ -1,16 +1,21 @@
-// import { useState } from 'react'
-import Search from './components/search/search'
-import MainContent from './components/main-content/main-content'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import MainPage from "./pages/main-page"
+import PeopleInfo from "./pages/people-info"
+
+import ROUTES from './const';
 
 
 function App() {
 
 
   return (
-    <>
-      <Search />
-      <MainContent />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path={ROUTES.HOME} element={<MainPage />} />
+        <Route path={ROUTES.PERSON} element={<PeopleInfo />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

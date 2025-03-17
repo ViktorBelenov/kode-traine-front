@@ -381,3 +381,87 @@ color: #C3C3C6;
   border-radius: 50px;
 
 }
+
+.person__main-info {
+  background-color: #F7F7F8;
+}
+
+.person__main-info-wrapper{
+  padding: 24px;
+  margin: 0 auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.person__main-info-photo {
+border-radius: 50%;
+height: 104px;
+
+margin-bottom: 24px;
+}
+
+.person__main-info-link-back-container {
+width: 100%;
+margin-bottom: 26px;
+}
+
+.person__main-info-name {
+font-size: 24px;
+font-weight: 700;
+
+margin-bottom: 12px;
+color:#050510;
+}
+
+.person__main-info-name-tag {
+font-weight: 400;
+font-size: 17px;
+color: #97979B;
+}
+
+.person__main-info-job{
+font-size: 13px;
+font-weight: 400;
+color:#55555C;
+}
+
+.person__second-info-wrapper{
+padding: 26px 16px;
+margin: 0 auto;
+width: 100%;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.person__second-info-birthday {
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+width: 100%;
+padding-bottom: 26px;
+border-bottom: 1px solid #F7F7F8;
+margin-bottom: 23px;
+}
+
+.person__second-info-birthday-favorite {
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+gap:14px;
+}
+
+.person__second-info-telephone {
+margin-right: auto;
+
+display: flex;
+align-items: center;
+
+gap:14px;
+}

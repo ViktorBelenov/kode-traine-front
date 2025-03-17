@@ -5,6 +5,7 @@ import { Person } from "../../types/person";
 import { useAppSelector } from "../../store/hooks";
 
 import getHumanDate from "../../utils";
+import { Link } from "react-router-dom";
 
 type CardType =  'loading' | 'succeeded'
 
@@ -39,7 +40,8 @@ function Card ({person, type}:CardProps):JSX.Element {
     }
 
     return(
-    <li className="employee-list__card">
+    <li>
+      <Link to={`/person/${person.id}`} className="employee-list__card">
         <img
           className="employee-list__card-img"
           src={person.avatarUrl}
@@ -52,7 +54,7 @@ function Card ({person, type}:CardProps):JSX.Element {
           <span className="employee-list__card-job-title">{person.position}</span>
         </div>
         {showHideBirthday(sortBy)}
-
+      </Link>
     </li>
       )
 }
