@@ -18,6 +18,7 @@ type PeopleState = {
     status: "idle" | "loading" | "succeeded" | "failed";
     filterBy: FilterBy;
     sortBy: TSortBy;
+    searchBy:string
 }
 
 type ResponseType = {
@@ -29,34 +30,52 @@ export const fetchPeople = createAsyncThunk("people/fetchPeople", async (filterB
     return response.data.items;
   });
 
-  const sortPeople = (type: TSortBy, people: Person[]): Person[] => {
-    switch (type) {
-      case "none":
+
+const birthdaySort = (people: Person[]): Person[] => {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  
+  return [...people].sort((a, b) => {
+    const dateA = new Date(a.birthday);
+    const dateB = new Date(b.birthday);
+  
+    dateA.setFullYear(currentYear);
+    dateB.setFullYear(currentYear);
+  
+    if (dateA < today) dateA.setFullYear(currentYear + 1);
+    if (dateB < today) dateB.setFullYear(currentYear + 1);
+  
+    return dateA.getTime() - dateB.getTime();
+  });
+};
+
+const sortPeople = (type: TSortBy, people: Person[]): Person[] => {
+  switch (type) {
+    case "none":
         return people;
         
-      case "firstName":
-        return [...people].sort((a, b) => {
-          if (a[type] > b[type]) return 1;
-          if (a[type] < b[type]) return -1;
-          return 0;
-        });
-      case "birthday":
-        return [...people].sort((a, b) => {
-          if (a[type] < b[type]) return 1;
-          if (a[type] > b[type]) return -1;
-          return 0;
-        });
+    case "firstName":
+      return [...people].sort((a, b) => {
+        if (a[type] > b[type]) return 1;
+        if (a[type] < b[type]) return -1;
+        return 0;
+      });
+    case "birthday":
+      return birthdaySort(people);
   
-      default:
-        return people;
-    }
-  };
+    default:
+      return people;
+  }
+};
+
+
 
 const initialState: PeopleState = {
     people: [],
     status: "idle",
     filterBy: "all",
-    sortBy: "firstName"
+    sortBy: "firstName",
+    searchBy:''
   };
 
   const peopleSlice = createSlice({
