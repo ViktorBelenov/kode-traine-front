@@ -6,7 +6,7 @@ import { fetchPeople } from "../../store/peopleSlice";
 
 
 import JobList from "../job-list/job-list";
-import ListContent from "../card-list/list-content";
+import ListContent from "../list-content/list-content";
 
 
 function MainContent ():JSX.Element {
