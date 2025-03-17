@@ -89,6 +89,7 @@ img {
   font-weight: 500;
 
   border:none;
+  caret-color: #6534FF;
 }
 
 .search-input::placeholder {

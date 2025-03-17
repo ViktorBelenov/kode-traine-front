@@ -6,15 +6,22 @@ import { useAppSelector } from "../../store/hooks";
 
 import getHumanDate from "../../utils";
 
+type CardType =  'loading' | 'succeeded'
 
 type CardProps = {
+  type: Extract<CardType, 'succeeded'>;
   person:Person;
+} | {
+  type: Exclude<CardType, 'succeeded'>;
+  person?:Person;
 }
 
-
-function Card ({person}:CardProps):JSX.Element {
-
-    const sortBy = useAppSelector((state) => state.people.sortBy);
+function Card ({person, type}:CardProps):JSX.Element {
+  const sortBy = useAppSelector((state) => state.people.sortBy);
+    
+    if(type === 'loading') {
+      return (<h1>gerge</h1>)
+    }
 
     const showHideBirthday = (sortBy:string):JSX.Element | undefined => {
       return sortBy === 'birthday' ?                
@@ -38,7 +45,7 @@ function Card ({person}:CardProps):JSX.Element {
         </div>
         {showHideBirthday(sortBy)}
 
-      </li>
+    </li>
       )
 }
 

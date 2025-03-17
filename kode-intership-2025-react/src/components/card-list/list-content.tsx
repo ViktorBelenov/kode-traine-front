@@ -56,7 +56,7 @@ function ListContent ():JSX.Element {
             {people.map((person) => (
                 <React.Fragment key={person.id}>
                     {sortBy === "birthday" && !isDividerRendered ? renderHideDivider(person) : null}
-                    <Card person={person} />
+                    <Card person={person} type='succeeded'/>
                 </React.Fragment>
             ))}
             {renderEmptySearch(people, searchBy)}

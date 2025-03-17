@@ -347,3 +347,23 @@ img {
     font-weight: 600;
     color:#6534FF;
   }
+
+
+  .loading {
+    background-color: #FAFAFA;
+  }
+
+  .loading-name {
+    width: 144px;
+    height: 16px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+
+  }
+
+  .loading-job{
+    width: 80px;
+    height: 12px;
+    border-radius: 50px;
+
+  }
