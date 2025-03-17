@@ -1,12 +1,31 @@
 import { JSX } from "react"
+import { Link, useParams } from "react-router-dom";
+import { useAppSelector } from "../store/hooks";
+
+import ROUTES from "../const";
+import { formatAge, formatDate } from "../utils";
 
 function PeopleInfo():JSX.Element {
+
+    const id = useParams().id;
+    const people = useAppSelector((state) => state.people.people);
+    
+    const currentPerson = people.find((person)=> person.id === id);
+
+
+
+    if(!currentPerson) {
+        return(
+            <h1>rgeege</h1>
+        )
+    }
+    
     return(
         <>
   <section className="person__main-info">
     <div className="person__main-info-wrapper">
       <div className="person__main-info-link-back-container">
-        <a>
+        <Link to={ROUTES.HOME}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width={16}
@@ -58,7 +77,7 @@ function PeopleInfo():JSX.Element {
               </filter>
             </defs>
           </svg>
-        </a>
+        </Link>
       </div>
       <img
         className="person__main-info-photo"
@@ -68,9 +87,9 @@ function PeopleInfo():JSX.Element {
         height={104}
       />
       <h1 className="person__main-info-name">
-        Алиса Иванова <span className="person__main-info-name-tag">al</span>
+        {`${currentPerson.firstName} ${currentPerson.lastName}`} <span className="person__main-info-name-tag">{`${currentPerson.department}`}</span>
       </h1>
-      <span className="person__main-info-job">Designer</span>
+      <span className="person__main-info-job">{`${currentPerson.position}`}</span>
     </div>
   </section>
   <section className="person__second-info">
@@ -89,9 +108,9 @@ function PeopleInfo():JSX.Element {
               fill="#050510"
             />
           </svg>
-          <span>5 июня 1996</span>
+          <span>{formatDate(currentPerson.birthday)}</span>
         </div>
-        <span className="person__second-info-birthday-total-year">24 года</span>
+        <span className="person__second-info-birthday-total-year">{formatAge(currentPerson.birthday)}</span>
       </div>
       <div className="person__second-info-telephone">
         <svg
@@ -106,7 +125,7 @@ function PeopleInfo():JSX.Element {
             fill="#050510"
           />
         </svg>
-        <span>+7 (999) 900 90 90</span>
+        <span>{currentPerson.phone}</span>
       </div>
     </div>
   </section>

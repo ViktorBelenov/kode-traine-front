@@ -4,7 +4,7 @@ import { JSX } from "react";
 import { Person } from "../../types/person";
 import { useAppSelector } from "../../store/hooks";
 
-import getHumanDate from "../../utils";
+import { getHumanDate } from "../../utils";
 import { Link } from "react-router-dom";
 
 type CardType =  'loading' | 'succeeded'
