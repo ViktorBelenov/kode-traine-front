@@ -1,22 +1,44 @@
-import { JSX } from "react"
+import { JSX, useEffect } from "react"
 import { Link, useParams } from "react-router-dom";
-import { useAppSelector } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 import ROUTES from "../const";
 import { formatAge, formatDate } from "../utils";
+import { fetchPeople } from "../store/peopleSlice";
 
 function PeopleInfo():JSX.Element {
 
     const id = useParams().id;
+    
+    const dispatch = useAppDispatch();
     const people = useAppSelector((state) => state.people.people);
+    const status = useAppSelector((state) => state.people.status);
     
     const currentPerson = people.find((person)=> person.id === id);
 
+    useEffect(() => {
+        if (!people.length) {
+          dispatch(fetchPeople('all'));
+        }
+      }, [dispatch, people.length]);
 
+
+
+    if(status === 'idle' || status==='loading') {
+        return(
+            <h1>Грузимся</h1>
+        )
+    }
+
+    if(status=== 'failed') {
+        return(
+            <h1>Негрузимся</h1>
+        )
+    }
 
     if(!currentPerson) {
         return(
-            <h1>rgeege</h1>
+            <h1>Обманули нет такого</h1>
         )
     }
     
