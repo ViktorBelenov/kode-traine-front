@@ -15,6 +15,7 @@ type FilterBy = TFilter;
 
 type PeopleState = {
     people: Person[];
+    copyPeople: Person[];
     status: "idle" | "loading" | "succeeded" | "failed";
     filterBy: FilterBy;
     sortBy: TSortBy;
@@ -71,7 +72,8 @@ const sortPeople = (type: TSortBy, people: Person[]): Person[] => {
 
 
 const initialState: PeopleState = {
-    people: [],
+    people: [],  
+    copyPeople: [],
     status: "idle",
     filterBy: "all",
     sortBy: "firstName",
@@ -84,13 +86,20 @@ const initialState: PeopleState = {
     reducers: {
       setFilterBy: (state, action) => {
         state.filterBy = action.payload;
+        state.searchBy = '';
       },
       setSortBy: (state, action) => {
         state.sortBy = action.payload;
-        state.people = sortPeople(action.payload, state.people);
+        state.copyPeople = sortPeople(action.payload, state.copyPeople);
       },
       setSearchBy: (state, action) => {
         state.searchBy = action.payload;
+      },
+      setSearch:(state) => {
+        state.copyPeople = state.people.filter((person) =>
+          `${person.firstName} ${person.lastName} ${person.userTag}`
+            .includes(state.searchBy)
+        );
       },
     },
     extraReducers: (builder) => {
@@ -101,7 +110,8 @@ const initialState: PeopleState = {
         .addCase(fetchPeople.fulfilled, (state, action) => {
           state.status = "succeeded";
           state.people = action.payload;
-          state.people = sortPeople(state.sortBy, state.people);
+          state.copyPeople = action.payload;
+          state.copyPeople = sortPeople(state.sortBy, state.copyPeople);
         })
         .addCase(fetchPeople.rejected, (state) => {
           state.status = "failed";
@@ -112,4 +122,5 @@ const initialState: PeopleState = {
   export const { setFilterBy } = peopleSlice.actions;
   export const { setSortBy } = peopleSlice.actions;
   export const { setSearchBy } = peopleSlice.actions;
+  export const { setSearch } = peopleSlice.actions;
   export default peopleSlice.reducer;

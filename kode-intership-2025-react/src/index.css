@@ -357,3 +357,7 @@ color: #C3C3C6;
   font-weight: 600;
   color:#6534FF;
 }
+
+.search__form {
+  width:100%;
+}

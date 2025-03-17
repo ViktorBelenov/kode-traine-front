@@ -12,8 +12,9 @@ import { useAppSelector } from "../../store/hooks";
 
 
 function ListContent ():JSX.Element {
-    const people = useAppSelector((state) => state.people.people);
+    const people = useAppSelector((state) => state.people.copyPeople);
     const sortBy = useAppSelector((state) => state.people.sortBy);
+    const searchBy = useAppSelector((state) => state.people.searchBy)
     
     const status = useAppSelector((state) => state.people.status);
 
@@ -39,15 +40,23 @@ function ListContent ():JSX.Element {
         return null;
     };
 
+    const renderEmptySearch = (people:Person[], search:string):JSX.Element | null => {
+        if(people.length === 0 && search.length !== 0) {
+            return(<h1>gdrgd</h1>)
+        }
+        return null;
+    };
+
 
     return (
         <React.Fragment>
-         {people.map((person) => (
-            <React.Fragment key={person.id}>
-                {sortBy === "birthday" && !isDividerRendered ? renderHideDivider(person) : null}
-                <Card person={person} />
-            </React.Fragment>
+            {people.map((person) => (
+                <React.Fragment key={person.id}>
+                    {sortBy === "birthday" && !isDividerRendered ? renderHideDivider(person) : null}
+                    <Card person={person} />
+                </React.Fragment>
             ))}
+            {renderEmptySearch(people, searchBy)}
         </React.Fragment>
 )
 };
