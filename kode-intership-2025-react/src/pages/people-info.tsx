@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import ROUTES from "../const";
 import { formatAge, formatDate } from "../utils";
 import { fetchPeople } from "../store/peopleSlice";
+import ErrorEmptySearch from "../components/error-empty-search/error-empty-search";
+import ErrorLoading from "../components/error-loading/error-loading";
 
 function PeopleInfo():JSX.Element {
 
@@ -26,19 +28,23 @@ function PeopleInfo():JSX.Element {
 
     if(status === 'idle' || status==='loading') {
         return(
-            <h1>Грузимся</h1>
+            <h1>Loading</h1>
         )
     }
 
     if(status=== 'failed') {
         return(
-            <h1>Негрузимся</h1>
+            <ul>
+                <ErrorLoading />
+            </ul>
         )
     }
 
     if(!currentPerson) {
         return(
-            <h1>Обманули нет такого</h1>
+            <ul>
+            <ErrorEmptySearch />
+        </ul>
         )
     }
     
