@@ -9,13 +9,14 @@ function Search():JSX.Element {
     const dispatch = useAppDispatch();
     const sortBy = useAppSelector((state) => state.people.sortBy);
     const searchBy = useAppSelector((state) => state.people.searchBy);
+    const status = useAppSelector((state) => state.people.status);
+    
 
     const input = useRef<HTMLInputElement | null>(null);
 
 
 
     const [isSortWindowActive, setWindowState] = useState<boolean>(false);
-    // const [query, setQuery] = useState("");
 
     const handelShowHideSortWindow = (): void  => {
         setWindowState(!isSortWindowActive);
@@ -47,6 +48,7 @@ function Search():JSX.Element {
                     value={searchBy}
                     onChange={(e) => dispatch(setSearchBy(e.target.value))}
                     ref={input}
+                    disabled={status==="loading" || status==='idle'}
                 />
             </form>
             <button className="search__button search__button-list" onClick={handelShowHideSortWindow}>

@@ -362,3 +362,22 @@ color: #C3C3C6;
 .search__form {
   width:100%;
 }
+
+.loading {
+  background-color: #FAFAFA;
+}
+
+.loading-name {
+  width: 144px;
+  height: 16px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+
+}
+
+.loading-job{
+  width: 80px;
+  height: 12px;
+  border-radius: 50px;
+
+}

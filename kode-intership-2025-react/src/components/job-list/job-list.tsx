@@ -10,6 +10,7 @@ function JobList():JSX.Element {
 
   const dispatch = useAppDispatch();
   const filterBy = useAppSelector((state) => state.people.filterBy);
+  const status = useAppSelector((state) => state.people.status);
 
   const handleFilterChange = (filterBy: TFilter) => {
     dispatch(setFilterBy(filterBy));
@@ -20,8 +21,10 @@ function JobList():JSX.Element {
     <ul className="employee-list__job-list">
         {CurrentFilters
         .map(([key, value]) => (
-          <li key={key} className={`employee-list__job-item ${key === filterBy ? 'employee-list__job-item--active':''}`} onClick={() => handleFilterChange(key as TFilter)}>
-            {value.title}
+          <li key={key} >
+            <button className={`employee-list__job-item ${key === filterBy ? 'employee-list__job-item--active':''}`} onClick={() => handleFilterChange(key as TFilter)} disabled={status==="loading" || status==='idle'}>
+              {value.title}
+            </button>
           </li>
         ))}
     </ul>

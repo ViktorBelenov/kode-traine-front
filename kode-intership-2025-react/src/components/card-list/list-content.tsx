@@ -9,6 +9,8 @@ import Card from "../card/card";
 import { Person } from "../../types/person";
 import { useAppSelector } from "../../store/hooks";
 
+const LOADING_CARD_COUNT = 4;
+
 
 
 
@@ -16,6 +18,7 @@ function ListContent ():JSX.Element {
     const people = useAppSelector((state) => state.people.copyPeople);
     const sortBy = useAppSelector((state) => state.people.sortBy);
     const searchBy = useAppSelector((state) => state.people.searchBy)
+
     
     const status = useAppSelector((state) => state.people.status);
 
@@ -24,6 +27,16 @@ function ListContent ():JSX.Element {
 
     if(status === 'failed') {
         return <ErrorLoading/>
+    }
+
+    if(status === 'idle' || status === 'loading') {
+        return(
+        <>
+            {Array.from({ length: LOADING_CARD_COUNT }, (_, index) => (
+                <Card key={index}  type="loading"/>
+            ))}
+        </>
+    )
     }
 
 

@@ -20,7 +20,15 @@ function Card ({person, type}:CardProps):JSX.Element {
   const sortBy = useAppSelector((state) => state.people.sortBy);
     
     if(type === 'loading') {
-      return (<h1>gerge</h1>)
+      return (
+        <li className="employee-list__card">
+          <div className="employee-list__card-img loading"></div>
+          <div className="employee-list__card-text-container">
+            <div className="employee-list__card-name loading loading-name"></div>
+            <div className="employee-list__card-job-title loading loading-job"></div>
+          </div>
+        </li>
+      )
     }
 
     const showHideBirthday = (sortBy:string):JSX.Element | undefined => {
