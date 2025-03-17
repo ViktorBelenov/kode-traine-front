@@ -29,21 +29,28 @@ export const fetchPeople = createAsyncThunk("people/fetchPeople", async (filterB
     return response.data.items;
   });
 
-const sortPeople = (type:TSortBy, people:Person[]):Person[] => {
-    if(type === 'none') {
-      return people;
+  const sortPeople = (type: TSortBy, people: Person[]): Person[] => {
+    switch (type) {
+      case "none":
+        return people;
+        
+      case "firstName":
+        return [...people].sort((a, b) => {
+          if (a[type] > b[type]) return 1;
+          if (a[type] < b[type]) return -1;
+          return 0;
+        });
+      case "birthday":
+        return [...people].sort((a, b) => {
+          if (a[type] < b[type]) return 1;
+          if (a[type] > b[type]) return -1;
+          return 0;
+        });
+  
+      default:
+        return people;
     }
-
-    return people.sort((a, b) => {
-      if (a[type] > b[type]) {
-        return 1;
-      }
-      if (a[type] < b[type]) {
-        return -1;
-      }
-      return 0;
-    });
-  }
+  };
 
 const initialState: PeopleState = {
     people: [],

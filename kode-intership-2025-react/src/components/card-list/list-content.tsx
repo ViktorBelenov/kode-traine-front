@@ -29,6 +29,7 @@ function ListContent ():JSX.Element {
 
         const firstDate = new Date(firstPerson.birthday);
         const secondDate = new Date(secondPerson.birthday); 
+        
         if(firstDate.getFullYear() != secondDate.getFullYear()) {
             return <Divider date={secondDate.getFullYear().toString()} />
         }
