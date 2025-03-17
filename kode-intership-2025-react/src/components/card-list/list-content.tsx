@@ -17,7 +17,7 @@ function ListContent ():JSX.Element {
     
     const status = useAppSelector((state) => state.people.status);
 
-    let isRendered:boolean = false;
+    let isDividerRendered:boolean = false;
 
 
     if(status === 'failed') {
@@ -33,19 +33,18 @@ function ListContent ():JSX.Element {
         const personDate = new Date(person.birthday);
         personDate.setFullYear(currentYear);
         if(personDate < today) {
-            isRendered = true;
+            isDividerRendered = true;
             return <Divider date={[currentYear + 1].toString()} />
         }
         return null;
     };
 
 
-    console.log(sortBy === "birthday" && !isRendered);
     return (
         <React.Fragment>
          {people.map((person) => (
             <React.Fragment key={person.id}>
-                {sortBy === "birthday" && !isRendered ? renderHideDivider(person) : null}
+                {sortBy === "birthday" && !isDividerRendered ? renderHideDivider(person) : null}
                 <Card person={person} />
             </React.Fragment>
             ))}

@@ -89,6 +89,9 @@ const initialState: PeopleState = {
         state.sortBy = action.payload;
         state.people = sortPeople(action.payload, state.people);
       },
+      setSearchBy: (state, action) => {
+        state.searchBy = action.payload;
+      },
     },
     extraReducers: (builder) => {
       builder
@@ -108,4 +111,5 @@ const initialState: PeopleState = {
 
   export const { setFilterBy } = peopleSlice.actions;
   export const { setSortBy } = peopleSlice.actions;
+  export const { setSearchBy } = peopleSlice.actions;
   export default peopleSlice.reducer;
