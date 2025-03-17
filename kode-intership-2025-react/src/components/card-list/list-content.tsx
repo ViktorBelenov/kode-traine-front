@@ -3,6 +3,7 @@ import React from "react";
 
 import Divider from "../divider/divider";
 import ErrorLoading from "../error-loading/error-loading";
+import ErrorEmptySearch from "../error-empty-search/error-empty-search";
 import Card from "../card/card";
 
 import { Person } from "../../types/person";
@@ -42,7 +43,9 @@ function ListContent ():JSX.Element {
 
     const renderEmptySearch = (people:Person[], search:string):JSX.Element | null => {
         if(people.length === 0 && search.length !== 0) {
-            return(<h1>gdrgd</h1>)
+            return(
+                <ErrorEmptySearch />
+            )
         }
         return null;
     };
