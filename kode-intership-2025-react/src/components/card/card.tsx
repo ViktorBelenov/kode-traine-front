@@ -6,6 +6,7 @@ import { useAppSelector } from "../../store/hooks";
 
 import { getHumanDate } from "../../utils";
 import { Link } from "react-router-dom";
+import LoadingCard from "./loading-card";
 
 type CardType =  'loading' | 'succeeded'
 
@@ -22,13 +23,7 @@ function Card ({person, type}:CardProps):JSX.Element {
     
     if(type === 'loading') {
       return (
-        <li className="employee-list__card">
-          <div className="employee-list__card-img loading"></div>
-          <div className="employee-list__card-text-container">
-            <div className="employee-list__card-name loading loading-name"></div>
-            <div className="employee-list__card-job-title loading loading-job"></div>
-          </div>
-        </li>
+        <LoadingCard />
       )
     }
 

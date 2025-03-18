@@ -5,8 +5,9 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import ROUTES from "../const";
 import { formatAge, formatDate } from "../utils";
 import { fetchPeople } from "../store/peopleSlice";
-import ErrorEmptySearch from "../components/error-empty-search/error-empty-search";
+
 import Error from "../components/error/error";
+import LoadingStub from "../components/loading-stub/loading-stub";
 
 function PeopleInfo():JSX.Element {
 
@@ -28,14 +29,14 @@ function PeopleInfo():JSX.Element {
 
     if(status === 'idle' || status==='loading') {
         return(
-            <h1>Loading</h1>
+            <LoadingStub />
         )
     }
 
     if(status=== 'failed') {
         return(
             <ul>
-                <Error />
+                <Error type="loading"/>
             </ul>
         )
     }
@@ -43,7 +44,7 @@ function PeopleInfo():JSX.Element {
     if(!currentPerson) {
         return(
         <ul>
-            <ErrorEmptySearch />
+            <Error type="notFound"/>
         </ul>
         )
     }
@@ -109,7 +110,7 @@ function PeopleInfo():JSX.Element {
       </div>
       <img
         className="person__main-info-photo"
-        src="./img/cat.jpg"
+        src={currentPerson.avatarUrl}
         alt="avatar"
         width={104}
         height={104}
