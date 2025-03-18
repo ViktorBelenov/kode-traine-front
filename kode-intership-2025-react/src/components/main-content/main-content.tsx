@@ -6,7 +6,7 @@ import { fetchPeople } from "../../store/peopleSlice";
 
 
 import JobList from "../job-list/job-list";
-import ListContent from "../list-content/list-content";
+import PeopleList from "../people-list/people-list";
 
 
 function MainContent ():JSX.Element {
@@ -23,9 +23,7 @@ function MainContent ():JSX.Element {
         <section className="employee-list">
             <JobList />
             <div className="employee-list__wrapper">
-                <ul className="employee-list__list">
-                    <ListContent />
-                </ul>
+                    <PeopleList />
             </div>
         </section>
     </main>

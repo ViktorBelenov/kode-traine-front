@@ -6,7 +6,7 @@ import ROUTES from "../const";
 import { formatAge, formatDate } from "../utils";
 import { fetchPeople } from "../store/peopleSlice";
 import ErrorEmptySearch from "../components/error-empty-search/error-empty-search";
-import ErrorLoading from "../components/error-loading/error-loading";
+import Error from "../components/error/error";
 
 function PeopleInfo():JSX.Element {
 
@@ -35,14 +35,14 @@ function PeopleInfo():JSX.Element {
     if(status=== 'failed') {
         return(
             <ul>
-                <ErrorLoading />
+                <Error />
             </ul>
         )
     }
 
     if(!currentPerson) {
         return(
-            <ul>
+        <ul>
             <ErrorEmptySearch />
         </ul>
         )
