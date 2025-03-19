@@ -24,7 +24,7 @@ function MainContent ():JSX.Element {
         <section className="employee-list">
             <JobList />
             <div className="employee-list__wrapper">
-                    <PeopleList />
+                <PeopleList />
             </div>
         </section>
     </main>

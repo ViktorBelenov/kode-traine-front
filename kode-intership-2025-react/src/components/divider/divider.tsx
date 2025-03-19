@@ -1,4 +1,5 @@
 import { JSX } from "react";
+import { SDivider, SDividerLine, SDividerSpan } from "./divider-style";
 
 type DividerProps = {
     date: string;
@@ -6,11 +7,11 @@ type DividerProps = {
 
 function Divider({date}:DividerProps):JSX.Element {
 return(
-    <li className='divider'>
-        <div className='divider-line'></div>
-        <span className='divider-text'>{date}</span>
-        <div className='divider-line'></div>
-    </li>
+    <SDivider>
+        <SDividerLine></SDividerLine>
+        <SDividerSpan>{date}</SDividerSpan>
+        <SDividerLine></SDividerLine>
+    </SDivider>
 );
 }
 
