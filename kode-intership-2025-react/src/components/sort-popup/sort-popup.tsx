@@ -5,6 +5,8 @@ import { TSortBy } from "../../types/sort";
 
 import { setSortBy } from "../../store/peopleSlice";
 
+import { SModalContainer, SModalTitle, SModalSort, SModalCloseButton, SModalSortInput, SModalSortInputDescription, SModalSortLabel, SModalSortList } from "./sort-popup-style";
+
 type SortPopupProps = {
     handelShowHideSortWindow:()=>void;
 }
@@ -20,10 +22,10 @@ function SortPopup({handelShowHideSortWindow: handleShowHideSortWindow}:SortPopu
     };
 
     return (
-        <div className="modal-container">
-        <div className="modal-sort modal">
-          <h1 className="modal-title">Сортировка</h1>
-          <button className="modal-close-button" onClick={handleShowHideSortWindow}>
+      <SModalContainer>
+        <SModalSort>
+          <SModalTitle>Сортировка</SModalTitle>
+          <SModalCloseButton onClick={handleShowHideSortWindow}>
             <span className="visually-hidden">Закрыть окно</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -38,26 +40,26 @@ function SortPopup({handelShowHideSortWindow: handleShowHideSortWindow}:SortPopu
                 fill="#C3C3C6"
               />
             </svg>
-          </button>
+          </SModalCloseButton>
           <form>
-          <ul className="modal-sort-list">
-            <li className="modal-sort-item">
-              <label className="radio form__type-radio-first">
-              <input
+          <SModalSortList>
+            <li>
+              <SModalSortLabel>
+              <SModalSortInput
                   className="radio__input visually-hidden"
                   type="radio"
                   name="sort"
                   value="firstName"
                   checked={sortBy === "firstName"}
                   onChange={() => handleFilterChange("firstName")}
-                />
-                <span className="radio__control-mark" />
-                <span className="radio__description">По алфавиту</span>
-              </label>
+              />
+              <span className="radio__control-mark" />
+              <SModalSortInputDescription>По алфавиту</SModalSortInputDescription>
+              </SModalSortLabel>
             </li>
             <li>
-              <label className="radio form__type-radio-second">
-              <input
+             <SModalSortLabel>
+                <SModalSortInput
                   className="radio__input visually-hidden"
                   type="radio"
                   name="sort"
@@ -66,13 +68,13 @@ function SortPopup({handelShowHideSortWindow: handleShowHideSortWindow}:SortPopu
                   onChange={() => handleFilterChange("birthday")}
                 />
                 <span className="radio__control-mark" />
-                <span className="radio__description">По дню рождения</span>
-              </label>
+                <SModalSortInputDescription>По дню рождения</SModalSortInputDescription>
+              </SModalSortLabel>
             </li>
-          </ul>
+          </SModalSortList>
           </form>
-        </div>
-      </div>
+        </SModalSort>
+      </SModalContainer>
       )
 }
 

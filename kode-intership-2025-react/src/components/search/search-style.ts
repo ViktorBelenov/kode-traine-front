@@ -25,13 +25,13 @@ export const SSearchFieldContainer = styled.div`
   display: flex;
   position:relative;
 `
-export const SSearchIcon = styled.svg<{ active?: boolean }>`
+export const SSearchIcon = styled.svg<{ $active?: boolean }>`
     position: absolute;
     top: 10px;
     left:10px;
     width: 24px;
     height: 24px;
-    fill: ${(props) => (props.active ? "#050510" : "#C3C3C6")};
+    fill: ${(props) => (props.$active ? "#050510" : "#C3C3C6")};
 `
 
 export const SSearchForm = styled.form`
@@ -68,10 +68,10 @@ export const SSearchPopupButton = styled.button`
     right:10px;
 `
 
-export const SSearchIconPopup = styled.svg<{ active?: boolean }>`
+export const SSearchIconPopup = styled.svg<{ $active?: boolean }>`
     position: absolute;
     right:10px;
     width: 24px;
     height: 24px;
-    fill: ${(props) => (props.active ? '#6534FF' : '#C3C3C6')};
+    fill: ${(props) => (props.$active ? '#6534FF' : '#C3C3C6')};
 `
