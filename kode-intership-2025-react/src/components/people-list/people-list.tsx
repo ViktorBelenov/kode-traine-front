@@ -9,6 +9,8 @@ import Card from "../card/card";
 import { Person } from "../../types/person";
 import { useAppSelector } from "../../store/hooks";
 
+import { SEmployList } from "./people-list-style";
+
 const LOADING_CARD_COUNT = 4;
 
 
@@ -63,14 +65,14 @@ function PeopleList ():JSX.Element {
 
     return (
         <React.Fragment>
-            <ul className="employee-list__list">
+            <SEmployList>
                 {people.map((person) => (
                     <React.Fragment key={person.id}>
                         {sortBy === "birthday" && !isDividerRendered ? renderHideDivider(person) : null}
                         <Card person={person} type='succeeded'/>
                     </React.Fragment>
                 ))}
-            </ul>
+            </SEmployList>
         </React.Fragment>
 )
 };

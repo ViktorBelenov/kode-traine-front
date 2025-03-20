@@ -21,6 +21,5 @@ export const SJobListButton = styled.button<{ $active: boolean }>`
     font-weight: 600;
     font-size: 15px;    
     padding: 8px 12px;
-
     border-bottom:${(props)=>props.$active ? '2px solid #6534FF' : 'none'}
 `

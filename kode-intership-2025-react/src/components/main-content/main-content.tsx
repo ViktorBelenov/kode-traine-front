@@ -4,6 +4,7 @@ import { JSX, useEffect } from "react";
 import { useAppDispatch,  useAppSelector } from "../../store/hooks";
 import { fetchPeople } from "../../store/peopleSlice";
 
+import { SEmployWrapper } from "./main-content-style";
 
 import JobList from "../job-list/job-list";
 import PeopleList from "../people-list/people-list";
@@ -21,11 +22,11 @@ function MainContent ():JSX.Element {
 
     return (
     <main>
-        <section className="employee-list">
+        <section>
             <JobList />
-            <div className="employee-list__wrapper">
+            <SEmployWrapper>
                 <PeopleList />
-            </div>
+            </SEmployWrapper>
         </section>
     </main>
     );

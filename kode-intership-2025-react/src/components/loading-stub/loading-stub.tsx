@@ -1,11 +1,12 @@
 import { JSX } from 'react';
+import { SError, SErrorTitle, SErrorPromise } from '../error/error-style';
 
 function LoadingStub ():JSX.Element {
   return (
-    <div className="employee-error">
-        <span className="employee-error__title">Идёт загрузка</span>
-        <span className="employee-error__promise">Пожалуйста подождите...</span>
-    </div>
+    <SError>
+        <SErrorTitle>Идёт загрузка</SErrorTitle>
+        <SErrorPromise>Пожалуйста подождите...</SErrorPromise>
+    </SError>
   );
 };
 

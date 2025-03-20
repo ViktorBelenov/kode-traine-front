@@ -25,10 +25,10 @@ function JobList():JSX.Element {
         .map(([key, value]) => (
           <li key={key}>
             <SJobListButton 
-            $active={key === filterBy}
-            onClick={() => handleFilterChange(key as TFilter)}
-            disabled={status==="loading" || status==='idle'} 
-            >
+              $active={key === filterBy}
+              onClick={() => handleFilterChange(key as TFilter)}
+              disabled={status==="loading" || status==='idle'} 
+              >
               {value.title}
             </SJobListButton>
           </li>
