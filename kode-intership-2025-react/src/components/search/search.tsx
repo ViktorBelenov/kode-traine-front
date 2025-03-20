@@ -3,9 +3,10 @@ import { JSX, useState, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { setSearch, setSearchBy } from "../../store/peopleSlice";
 
-import { SSearch, SSearchIcon, SSearchFieldContainer, SSearchTitle, SSearchWrapper, SSearchForm ,SSearchInput, SSearchIconPopup, SSearchPopupButton } from "./search-style";
+import { SSearch, SSearchIcon, SSearchFieldContainer, SSearchTitle, SSearchWrapper, SSearchForm ,SSearchInput, SSearchIconPopup, SSearchPopupButton, SSearchTitleWrapper } from "./search-style";
 
 import SortPopup from "../sort-popup/sort-popup";
+import ThemeSwitch from "../theme-switch/theme-switch";
 
 function Search():JSX.Element {
     const dispatch = useAppDispatch();
@@ -38,7 +39,10 @@ function Search():JSX.Element {
     <>
     <SSearch>
         <SSearchWrapper className="search__wrapper">
-            <SSearchTitle>Поиск</SSearchTitle>
+            <SSearchTitleWrapper>
+                <SSearchTitle>Поиск</SSearchTitle>
+                <ThemeSwitch></ThemeSwitch>
+            </SSearchTitleWrapper>
             <SSearchFieldContainer>
 
             <SSearchIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" $active={isSearchIconActive}>

@@ -13,6 +13,10 @@ export const SSearchWrapper = styled.div`
     flex-direction: column;
     gap: 6px;
 `
+export const SSearchTitleWrapper = styled.div`  
+    display: flex;
+    justify-content: space-between;
+`
 
 export const SSearchTitle = styled.h2`
   font-size: 28px;
