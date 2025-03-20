@@ -2,6 +2,7 @@ import { JSX } from "react";
 
 import { useAppDispatch } from "../../store/hooks";
 import { fetchPeople } from "../../store/peopleSlice";
+import { SError, SErrorTitle, SErrorPromise, SErrorButton } from "./error-style";
 
 import UFO from "../../../src/assets/ufo.png";
 import Search from "../../../src/assets/search.png";
@@ -44,17 +45,17 @@ function Error ({type}: ErrorProps):JSX.Element {
 
     const errorType = ErrorState[type]
     return(
-    <div className="employee-error">
+    <SError>
         <img src={type === 'loading' ? UFO : Search} width={56} height={56} />
-        <span className="employee-error__title">{errorType.title}</span>
-        <span className="employee-error__promise">{errorType.promise}</span>
+        <SErrorTitle>{errorType.title}</SErrorTitle>
+        <SErrorPromise>{errorType.promise}</SErrorPromise>
 
         {errorType.button && (
-          <button className="employee-error__button" onClick={ButtonClickHandler}>
+          <SErrorButton onClick={ButtonClickHandler}>
             {errorType.button}
-          </button>
+          </SErrorButton>           
         )}
-    </div>
+    </SError>
       )
 };
 

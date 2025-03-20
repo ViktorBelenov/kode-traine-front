@@ -2,6 +2,8 @@ import { JSX } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setFilterBy, fetchPeople } from "../../store/peopleSlice";
 
+import { SJobList, SJobListButton } from "./job-list-style";
+
 import CurrentFilters from "./job-list-const";
 import { TFilter } from "../../types/person";
 
@@ -18,16 +20,21 @@ function JobList():JSX.Element {
 };
 
     return (
-    <ul className="employee-list__job-list">
+      <SJobList>
         {CurrentFilters
         .map(([key, value]) => (
-          <li key={key} >
-            <button className={`employee-list__job-item ${key === filterBy ? 'employee-list__job-item--active':''}`} onClick={() => handleFilterChange(key as TFilter)} disabled={status==="loading" || status==='idle'}>
+          <li key={key}>
+            <SJobListButton 
+            $active={key === filterBy}
+            onClick={() => handleFilterChange(key as TFilter)}
+            disabled={status==="loading" || status==='idle'} 
+            >
               {value.title}
-            </button>
+            </SJobListButton>
           </li>
         ))}
-    </ul>
+      </SJobList>
+
     );
 }
 
