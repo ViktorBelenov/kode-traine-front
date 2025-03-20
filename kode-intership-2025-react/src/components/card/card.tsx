@@ -1,12 +1,14 @@
 import { JSX } from "react";
 
-
-import { Person } from "../../types/person";
 import { useAppSelector } from "../../store/hooks";
 
 import { getHumanDate } from "../../utils";
-import { Link } from "react-router-dom";
+
+import { Person } from "../../types/person";
 import LoadingCard from "./loading-card";
+
+import { SCard, SCardImg, SCardJob, SCardName, SCardTag, SCardBirthdayContainer, SCardBirthdayText } from "./card-style";
+import { Link } from "react-router-dom";
 
 type CardType =  'loading' | 'succeeded'
 
@@ -27,28 +29,29 @@ function Card ({person, type}:CardProps):JSX.Element {
       )
     }
 
-    const showHideBirthday = (sortBy:string):JSX.Element | undefined => {
-      return sortBy === 'birthday' ?                
-      <div className="employee-list__card-birthdate">
-        <span className="employee-list__card-birthdate-text">{getHumanDate(person.birthday)}</span>
-      </div> : undefined;
-    }
+    const showHideBirthday = (sortBy: string): JSX.Element | null => {
+      if (sortBy !== "birthday") return null;
+    
+      return (
+        <SCardBirthdayContainer>
+          <SCardBirthdayText>{getHumanDate(person.birthday)}</SCardBirthdayText>
+        </SCardBirthdayContainer>
+      );
+    };
 
     return(
     <li>
-      <Link to={`/person/${person.id}`} className="employee-list__card">
-        <img
-          className="employee-list__card-img"
-          src={person.avatarUrl}
-          alt="avatar"
-        />
-        <div className="employee-list__card-text-container">
-          <h3 className="employee-list__card-name">
-            {`${person.firstName} ${person.lastName}`} <span className="employee-list__card-name-job">{person.userTag}</span>
-          </h3>
-          <span className="employee-list__card-job-title">{person.position}</span>
-        </div>
-        {showHideBirthday(sortBy)}
+      <Link to={`/person/${person.id}`}>
+        <SCard>
+          <SCardImg src={person.avatarUrl} alt="avatar"/>
+          <div>
+            <SCardName>
+              {`${person.firstName} ${person.lastName}`} <SCardTag>{person.userTag}</SCardTag>
+            </SCardName>
+            <SCardJob>{person.position}</SCardJob>
+          </div>
+          {showHideBirthday(sortBy)}
+        </SCard>
       </Link>
     </li>
       )
