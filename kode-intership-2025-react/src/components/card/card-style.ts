@@ -17,7 +17,7 @@ export const SEmptyCardName = styled.div`
   height: 16px;
   border-radius: 50px;
   margin-bottom: 10px;
-    background-color: #FAFAFA;
+  background-color: #FAFAFA;
 `
 
 export const SEmptyCardJob = styled.div`
@@ -31,6 +31,9 @@ export const SCard = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
+
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.color};
 `
 
 export const SCardImg = styled.img`

@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const SSearch = styled.header`
-    margin-top: 8px;
+    padding-top: 16px;
+    padding-bottom:18px;
+    background-color: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.color};
 `
 
 export const SSearchWrapper = styled.div`

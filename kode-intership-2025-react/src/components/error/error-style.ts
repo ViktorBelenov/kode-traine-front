@@ -15,12 +15,14 @@ export const SError = styled.div`
 export const SErrorTitle = styled.span`
     font-size: 17px;
     font-weight: 600;
+    color: ${(props) => props.theme.color};
 `
 
 export const SErrorPromise = styled.span`
     font-size: 16px;
     font-weight: 400;
     color: #97979B;
+    color: ${(props) => props.theme.colorError};
 `
 
 

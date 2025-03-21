@@ -33,11 +33,11 @@ function PeopleList ():JSX.Element {
 
     if(status === 'idle' || status === 'loading') {
         return(
-        <>
+        <SEmployList>
             {Array.from({ length: LOADING_CARD_COUNT }, (_, index) => (
                 <Card key={index}  type="loading"/>
             ))}
-        </>
+         </SEmployList>
     )
     }
 

@@ -10,6 +10,7 @@ import { useAppSelector } from './store/hooks.ts';
 
 
 import ROUTES from './const';
+import { GlobalStyle } from './style/global.ts';
 
 
 function App() {
@@ -19,10 +20,11 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme === 'white' ? lightTheme : darkTheme}>
-        <Routes>
-          <Route path={ROUTES.HOME} element={<MainPage />} />
-          <Route path={ROUTES.PERSON} element={<PeopleInfo />} />
-        </Routes>
+        <GlobalStyle />
+          <Routes>
+            <Route path={ROUTES.HOME} element={<MainPage />} />
+            <Route path={ROUTES.PERSON} element={<PeopleInfo />} />
+          </Routes>
       </ThemeProvider>
     </BrowserRouter>
   )
