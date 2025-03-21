@@ -98,8 +98,8 @@ const initialState: PeopleState = {
       setSearch:(state) => {
         state.copyPeople = state.people.filter((person) =>
           `${person.firstName} ${person.lastName} ${person.userTag}`
-            .includes(state.searchBy)
-        );
+          .includes(state.searchBy))
+        state.copyPeople = sortPeople(state.sortBy, state.copyPeople);
       },
     },
     extraReducers: (builder) => {
