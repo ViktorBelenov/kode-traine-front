@@ -1,15 +1,17 @@
-import { JSX } from "react";
+import { JSX, ChangeEvent } from "react";
 
 import { SThemeSwitchLabel, SThemeSlider, SThemeSwitchInput } from "./theme-switch-style";
-import { useAppSelector } from "../../store/hooks";
-import { useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { setTheme } from "../../store/themeSlice";
+
 function ThemeSwitch ():JSX.Element {
     const theme = useAppSelector((state)=> state.theme.theme)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const handleToggle = () => {
-        dispatch(setTheme()); 
+
+
+    const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setTheme(e.target.checked ? "white" : "dark"));
     };
 
     return (
