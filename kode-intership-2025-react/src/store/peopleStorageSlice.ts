@@ -73,7 +73,7 @@ export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filte
  export const updateAfterOffline = createThunk("peopleStorage/updateAfterOffline", async (_, { dispatch }) => {
     dispatch(setFilterBy('all'))
     dispatch(setSearchBy(''))
-    dispatch(setSortBy('birthday'))
+    dispatch(setSortBy('firstName'))
     dispatch(fetchPeople('all'))
   });
 
