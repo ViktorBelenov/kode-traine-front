@@ -17,7 +17,7 @@ type peopleStorageState = {
 }
 
 const initialState: peopleStorageState = {
-    people:[],
+    people: JSON.parse(localStorage.getItem("people") || "[]"),
     status: "idle",
     online: "idle"
 }
@@ -35,6 +35,7 @@ export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filte
     if(onlineStatus !== 'offline') {
         const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${filterBy}`);
 
+        localStorage.setItem("people", JSON.stringify(response));
         dispatch(updateCopyPeople(response.data.items));
         return response.data.items;
     }
