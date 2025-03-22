@@ -9,6 +9,7 @@ import { ALL_USERS_END_POINT } from "../const";
 
 import { TFilter } from "../types/person";
 import { TSortBy } from "../types/sort";
+import { createThunk } from "./hooks";
 
 type FilterBy = TFilter;
 
@@ -26,8 +27,11 @@ type ResponseType = {
   items: Person[];
 }
 
-export const fetchPeople = createAsyncThunk("people/fetchPeople", async (filterBy: FilterBy) => {
+export const fetchPeople = createThunk("people/fetchPeople", async (filterBy: FilterBy,{getState}
+ ) => {
     const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${filterBy}`);
+    const a = getState().people.filterBy;
+    console.log(a);
     return response.data.items;
   });
 
