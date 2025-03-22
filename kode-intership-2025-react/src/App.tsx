@@ -13,12 +13,25 @@ import ROUTES from './const';
 import { GlobalStyle } from './style/global.ts';
 import { setTheme } from './store/themeSlice.ts';
 import { useEffect } from 'react';
+import { setOnlineStatus } from './store/peopleStorageSlice.ts';
 
 
 function App() {
 
-
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const handleOnline = () => dispatch(setOnlineStatus('online'));
+    const handleOffline = () => dispatch(setOnlineStatus('offline'));
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;

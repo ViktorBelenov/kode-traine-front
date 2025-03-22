@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-export const SSearch = styled.header`
+export const SSearch = styled.header<{ $isOffline: boolean }>`
     padding-top: 16px;
     padding-bottom:18px;
     background-color: ${(props) => props.theme.background};
     color: ${(props) => props.theme.color};
+    ${(props) => (props.$isOffline ? "background-color:#F44336; color:#fff" : "")}
 `
 
 export const SSearchWrapper = styled.div`
@@ -28,9 +29,10 @@ export const SSearchTitle = styled.h2`
   margin-left: 8px;
 `
 
-export const SSearchFieldContainer = styled.div`
+export const SSearchFieldContainer = styled.div<{ $isOffline: boolean }>`
   display: flex;
   position:relative;
+  ${(props) => (props.$isOffline ? "display:none;" : "")}
 `
 export const SSearchIcon = styled.svg<{ $active?: boolean }>`
     position: absolute;
@@ -81,4 +83,11 @@ export const SSearchIconPopup = styled.svg<{ $active?: boolean }>`
     width: 24px;
     height: 24px;
     fill: ${(props) => (props.$active ? '#6534FF' : '#C3C3C6')};
+`
+
+export const SSearchDisclaimer= styled.span<{ $isOffline: boolean }>`
+  font-size:13px;
+  font-weight: 500;
+  margin-left: 8px;
+  ${(props) => (props.$isOffline ?  "" : "display:none;")}
 `

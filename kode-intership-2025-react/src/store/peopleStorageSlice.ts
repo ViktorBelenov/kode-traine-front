@@ -13,11 +13,13 @@ type FilterBy = TFilter;
 type peopleStorageState = {
     people: Person[];
     status: "idle" | "loading" | "succeeded" | "failed";
+    online: "idle" |"online" | "offline"
 }
 
 const initialState: peopleStorageState = {
     people:[],
-    status: "idle"
+    status: "idle",
+    online: "idle"
 }
 
 type ResponseType = {
@@ -37,6 +39,9 @@ const peopleStorageSlice = createSlice({
     name: "peopleStorage",
     initialState,
     reducers: {
+        setOnlineStatus:(state, action) => {
+            state.online = action.payload;
+        },
     },
     extraReducers: (builder) => {
           builder
@@ -53,5 +58,5 @@ const peopleStorageSlice = createSlice({
         },
   });
 
-
+export const { setOnlineStatus }  = peopleStorageSlice.actions;
 export default peopleStorageSlice.reducer;
