@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-export const SSearch = styled.header<{ $isOffline: boolean }>`
+export const SSearch = styled.header<{ $isOffline: boolean, $isLoading:boolean }>`
     padding-top: 16px;
     padding-bottom:18px;
     background-color: ${(props) => props.theme.background};
     color: ${(props) => props.theme.color};
     ${(props) => (props.$isOffline ? "background-color:#F44336; color:#fff" : "")}
+    ${(props) => (props.$isLoading ? "background-color:#6534FF;" : "")}
 `
 
 export const SSearchWrapper = styled.div`
@@ -85,9 +86,9 @@ export const SSearchIconPopup = styled.svg<{ $active?: boolean }>`
     fill: ${(props) => (props.$active ? '#6534FF' : '#C3C3C6')};
 `
 
-export const SSearchDisclaimer= styled.span<{ $isOffline: boolean }>`
+export const SSearchDisclaimer= styled.span<{ $isShown: boolean }>`
   font-size:13px;
   font-weight: 500;
   margin-left: 8px;
-  ${(props) => (props.$isOffline ?  "" : "display:none;")}
+  ${(props) => (props.$isShown ?  "" : "display:none;")}
 `

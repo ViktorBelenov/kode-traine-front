@@ -5,7 +5,7 @@ import { ALL_USERS_END_POINT } from "../const";
 import { TFilter } from "../types/person";
 import { Person } from "../types/person";
 import { createThunk } from "./hooks";
-import { filterOffline, updateCopyPeople } from "./peopleSlice";
+import { filterOffline, setFilterBy, setSearchBy, updateCopyPeople } from "./peopleSlice";
 
 
 type FilterBy = TFilter;
@@ -46,6 +46,12 @@ export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filte
     return oldPeople;
 
  });
+
+ export const updateAfterOffline = createThunk("peopleStorage/updateAfterOffline", async (_, { dispatch }) => {
+    dispatch(setFilterBy('all'))
+    dispatch(setSearchBy(''))
+    dispatch(fetchPeople('all'))
+  });
 
  
 const peopleStorageSlice = createSlice({

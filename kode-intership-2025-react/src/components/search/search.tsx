@@ -16,6 +16,13 @@ function Search():JSX.Element {
 
     const onlineStatus = useAppSelector((state) => state.peopleStorage.online);
 
+    const disclaimerText = {
+        offline:'Не могу обновить данные. Проверь соединение с интернетом.',
+        loading:'Секундочку, гружусь...'
+    }
+
+    const disclaimerType = status === 'loading' ? 'loading' : 'offline';
+
     
 
     const input = useRef<HTMLInputElement | null>(null);
@@ -40,7 +47,7 @@ function Search():JSX.Element {
     const isPopupIconIsActive = sortBy === 'birthday';
     return (
     <>
-    <SSearch $isOffline={onlineStatus === 'offline' ? true : false}>
+    <SSearch $isOffline={onlineStatus === 'offline' ? true : false} $isLoading={status === 'loading'}>
         <SSearchWrapper>
             <SSearchTitleWrapper>
                 <SSearchTitle>Поиск</SSearchTitle>
@@ -68,7 +75,7 @@ function Search():JSX.Element {
                 </SSearchIconPopup>
             </SSearchPopupButton>
             </SSearchFieldContainer>
-            <SSearchDisclaimer $isOffline={onlineStatus === 'offline' ? true : false}>Не могу обновить данные. Проверь соединение с интернетом.</SSearchDisclaimer>
+            <SSearchDisclaimer $isShown={onlineStatus === 'offline' || status === 'loading' ? true : false}>{disclaimerText[disclaimerType]}</SSearchDisclaimer>
         </SSearchWrapper>
     </SSearch>
     {isSortWindowActive ?  <SortPopup handelShowHideSortWindow={handelShowHideSortWindow} /> : ''}
