@@ -5,7 +5,7 @@ import { ALL_USERS_END_POINT } from "../const";
 import { TFilter } from "../types/person";
 import { Person } from "../types/person";
 import { createThunk } from "./hooks";
-import { updateCopyPeople } from "./peopleSlice";
+import { filterOffline, updateCopyPeople } from "./peopleSlice";
 
 
 type FilterBy = TFilter;
@@ -26,12 +26,24 @@ type ResponseType = {
     items: Person[];
   }
 
-export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filterBy: FilterBy,{dispatch}
+export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filterBy: FilterBy,{getState, dispatch}
 ) => {
-   const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${filterBy}`);
+    const state = getState();
+    const oldPeople = state.peopleStorage.people;
+    const onlineStatus = state.peopleStorage.online;
 
-   dispatch(updateCopyPeople(response.data.items));
-   return response.data.items;
+    if(onlineStatus !== 'offline') {
+        const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${filterBy}`);
+
+        dispatch(updateCopyPeople(response.data.items));
+        return response.data.items;
+    }
+
+    dispatch(filterOffline(oldPeople));
+
+
+    return oldPeople;
+
  });
 
  

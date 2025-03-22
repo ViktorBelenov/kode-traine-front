@@ -75,6 +75,17 @@ export const sortPeople = (type: TSortBy, people: Person[]): Person[] => {
   }
 };
 
+const filterPeople = (filter:FilterBy, people: Person[]): Person[] => {
+ 
+  if(filter === 'all') {
+    return people;
+  }
+
+  return people.filter((person) => {
+    return person.department === filter;
+  });
+};
+
 
 
 const initialState: PeopleState = {
@@ -101,6 +112,9 @@ const initialState: PeopleState = {
       },
       setSearchBy: (state, action) => {
         state.searchBy = action.payload;
+      },
+      filterOffline: (state, action) => {
+        state.copyPeople = filterPeople(state.filterBy, action.payload);
       }
     }
   });
@@ -109,4 +123,5 @@ const initialState: PeopleState = {
   export const { setSortBy } = peopleSlice.actions;
   export const { setSearchBy } = peopleSlice.actions;
   export const { updateCopyPeople } = peopleSlice.actions;
+  export const { filterOffline } = peopleSlice.actions;
   export default peopleSlice.reducer;
