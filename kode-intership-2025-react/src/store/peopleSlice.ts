@@ -1,39 +1,41 @@
-import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-
-
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { Person } from "../types/person";
-
-import { ALL_USERS_END_POINT } from "../const";
 
 import { TFilter } from "../types/person";
 import { TSortBy } from "../types/sort";
 import { createThunk } from "./hooks";
 
+
 type FilterBy = TFilter;
 
 
 type PeopleState = {
-    people: Person[];
     copyPeople: Person[];
-    status: "idle" | "loading" | "succeeded" | "failed";
     filterBy: FilterBy;
     sortBy: TSortBy;
     searchBy:string
 }
 
-type ResponseType = {
-  items: Person[];
-}
 
-export const fetchPeople = createThunk("people/fetchPeople", async (filterBy: FilterBy,{getState}
- ) => {
-    const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${filterBy}`);
-    const a = getState().people.filterBy;
-    console.log(a);
-    return response.data.items;
-  });
+
+export const searchPeople = createThunk(
+  "people/searchPeople",
+  async (_, { getState, dispatch }) => {
+    const state = getState();
+    const people = state.peopleStorage.people;
+    const searchBy = state.people.searchBy;
+
+
+    const filteredPeople = people.filter((person) =>
+      `${person.firstName} ${person.lastName} ${person.userTag}`
+        .includes(searchBy)
+    );
+
+
+    dispatch(updateCopyPeople(filteredPeople));
+  }
+);
 
 
 const birthdaySort = (people: Person[]): Person[] => {
@@ -54,7 +56,7 @@ const birthdaySort = (people: Person[]): Person[] => {
   });
 };
 
-const sortPeople = (type: TSortBy, people: Person[]): Person[] => {
+export const sortPeople = (type: TSortBy, people: Person[]): Person[] => {
   switch (type) {
     case "none":
         return people;
@@ -76,9 +78,7 @@ const sortPeople = (type: TSortBy, people: Person[]): Person[] => {
 
 
 const initialState: PeopleState = {
-    people: [],  
     copyPeople: [],
-    status: "idle",
     filterBy: "all",
     sortBy: "firstName",
     searchBy:''
@@ -88,6 +88,9 @@ const initialState: PeopleState = {
     name: "people",
     initialState,
     reducers: {
+      updateCopyPeople:(state, action) => {
+        state.copyPeople = sortPeople(state.sortBy, action.payload);
+      },
       setFilterBy: (state, action) => {
         state.filterBy = action.payload;
         state.searchBy = '';
@@ -98,33 +101,12 @@ const initialState: PeopleState = {
       },
       setSearchBy: (state, action) => {
         state.searchBy = action.payload;
-      },
-      setSearch:(state) => {
-        state.copyPeople = state.people.filter((person) =>
-          `${person.firstName} ${person.lastName} ${person.userTag}`
-          .includes(state.searchBy))
-        state.copyPeople = sortPeople(state.sortBy, state.copyPeople);
-      },
-    },
-    extraReducers: (builder) => {
-      builder
-        .addCase(fetchPeople.pending, (state) => {
-          state.status = "loading";
-        })
-        .addCase(fetchPeople.fulfilled, (state, action) => {
-          state.status = "succeeded";
-          state.people = action.payload;
-          state.copyPeople = action.payload;
-          state.copyPeople = sortPeople(state.sortBy, state.copyPeople);
-        })
-        .addCase(fetchPeople.rejected, (state) => {
-          state.status = "failed";
-        });
-    },
+      }
+    }
   });
 
   export const { setFilterBy } = peopleSlice.actions;
   export const { setSortBy } = peopleSlice.actions;
   export const { setSearchBy } = peopleSlice.actions;
-  export const { setSearch } = peopleSlice.actions;
+  export const { updateCopyPeople } = peopleSlice.actions;
   export default peopleSlice.reducer;

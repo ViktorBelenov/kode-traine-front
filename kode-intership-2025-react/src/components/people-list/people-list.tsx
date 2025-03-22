@@ -22,7 +22,7 @@ function PeopleList ():JSX.Element {
     const searchBy = useAppSelector((state) => state.people.searchBy)
 
     
-    const status = useAppSelector((state) => state.people.status);
+    const status = useAppSelector((state) => state.peopleStorage.status);
 
     let isDividerRendered:boolean = false;
 

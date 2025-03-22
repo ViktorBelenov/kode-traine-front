@@ -1,7 +1,7 @@
 import { JSX, useState, useRef } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { setSearch, setSearchBy } from "../../store/peopleSlice";
+import { searchPeople, setSearchBy } from "../../store/peopleSlice";
 
 import { SSearch, SSearchIcon, SSearchFieldContainer, SSearchTitle, SSearchWrapper, SSearchForm ,SSearchInput, SSearchIconPopup, SSearchPopupButton, SSearchTitleWrapper } from "./search-style";
 
@@ -12,7 +12,7 @@ function Search():JSX.Element {
     const dispatch = useAppDispatch();
     const sortBy = useAppSelector((state) => state.people.sortBy);
     const searchBy = useAppSelector((state) => state.people.searchBy);
-    const status = useAppSelector((state) => state.people.status);
+    const status = useAppSelector((state) => state.peopleStorage.status);
     
 
     const input = useRef<HTMLInputElement | null>(null);
@@ -27,7 +27,7 @@ function Search():JSX.Element {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        dispatch(setSearch());
+        dispatch(searchPeople());
         if(input.current){
             input.current.blur();
         }     

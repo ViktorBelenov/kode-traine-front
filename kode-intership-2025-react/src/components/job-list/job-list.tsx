@@ -1,6 +1,8 @@
 import { JSX } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setFilterBy, fetchPeople } from "../../store/peopleSlice";
+import { setFilterBy } from "../../store/peopleSlice";
+
+import { fetchPeople } from "../../store/peopleStorageSlice";
 
 import { SJobList, SJobListButton } from "./job-list-style";
 
@@ -12,7 +14,7 @@ function JobList():JSX.Element {
 
   const dispatch = useAppDispatch();
   const filterBy = useAppSelector((state) => state.people.filterBy);
-  const status = useAppSelector((state) => state.people.status);
+  const status = useAppSelector((state) => state.peopleStorage.status);
 
   const handleFilterChange = (filterBy: TFilter) => {
     dispatch(setFilterBy(filterBy));
