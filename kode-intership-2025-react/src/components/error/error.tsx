@@ -1,6 +1,6 @@
 import { JSX } from "react";
 
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { fetchPeople } from "../../store/peopleStorageSlice";
 
@@ -8,6 +8,7 @@ import { SError, SErrorTitle, SErrorPromise, SErrorButton } from "./error-style"
 
 import UFO from "../../../src/assets/ufo.png";
 import Search from "../../../src/assets/search.png";
+import { ErrorState } from "./error-language";
 
 
 
@@ -18,36 +19,14 @@ type ErrorProps = {
 }
 
 
-type ErrorState = {
-  title: string;
-  promise: string;
-  button?: string;
-};
-
-const ErrorState : Record<Type, ErrorState> = {
-    loading: {
-        title:'Какой-то сверхразум все сломал',
-        promise:'Постараемся быстро починить',
-        button:'Попробовать снова'
-    },
-    notFound: {
-        title:'Человека не найдено',
-        promise:'Поищите в другом месте',
-    },
-    search: {
-        title:'Мы никого не нашли',
-        promise:'Попробуй скорректировать запрос',
-      }
-  };
-
-
 function Error ({type}: ErrorProps):JSX.Element {
     const dispatch = useAppDispatch();
     const ButtonClickHandler = () => {
         dispatch(fetchPeople('all'))
     };
+  const language = useAppSelector((state) => state.utility.language);
 
-    const errorType = ErrorState[type]
+    const errorType = ErrorState[language][type]
     return(
     <SError>
         <img src={type === 'loading' ? UFO : Search} width={56} height={56} />

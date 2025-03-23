@@ -1,11 +1,16 @@
 import { JSX } from 'react';
 import { SError, SErrorTitle, SErrorPromise } from '../error/error-style';
 
+import { LStubTitle, LStubPromise } from './loading-stub-language';
+import { useAppSelector } from '../../store/hooks';
+
+
 function LoadingStub ():JSX.Element {
+  const language = useAppSelector((state) => state.utility.language);
   return (
     <SError>
-        <SErrorTitle>Идёт загрузка</SErrorTitle>
-        <SErrorPromise>Пожалуйста подождите...</SErrorPromise>
+        <SErrorTitle>{ LStubTitle[language] }</SErrorTitle>
+        <SErrorPromise>{ LStubPromise[language] }</SErrorPromise>
     </SError>
   );
 };

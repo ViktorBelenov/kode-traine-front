@@ -7,6 +7,8 @@ import { setSortBy } from "../../store/peopleSlice";
 
 import { SModalContainer, SModalTitle, SModalSort, SModalCloseButton, SModalSortInput, SModalSortInputDescription, SModalSortLabel, SModalSortList } from "./sort-popup-style";
 
+import { LSortPopupTitle, LSortPopupCloseButton, LSortPopupAlphButton, LSortPopupDateButton } from "./sort-popup-language";
+
 type SortPopupProps = {
     handelShowHideSortWindow:()=>void;
 }
@@ -16,6 +18,8 @@ function SortPopup({handelShowHideSortWindow: handleShowHideSortWindow}:SortPopu
     const dispatch = useAppDispatch();
     const sortBy = useAppSelector((state) => state.people.sortBy);
 
+    const language = useAppSelector((state) => state.utility.language)
+
     const handleFilterChange = (sortBy:TSortBy) => {
         dispatch(setSortBy(sortBy));
         handleShowHideSortWindow();
@@ -24,9 +28,9 @@ function SortPopup({handelShowHideSortWindow: handleShowHideSortWindow}:SortPopu
     return (
       <SModalContainer>
         <SModalSort>
-          <SModalTitle>Сортировка</SModalTitle>
+          <SModalTitle>{LSortPopupTitle[language]}</SModalTitle>
           <SModalCloseButton onClick={handleShowHideSortWindow}>
-            <span className="visually-hidden">Закрыть окно</span>
+            <span className="visually-hidden">{LSortPopupCloseButton[language]}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={24}
@@ -54,7 +58,7 @@ function SortPopup({handelShowHideSortWindow: handleShowHideSortWindow}:SortPopu
                   onChange={() => handleFilterChange("firstName")}
               />
               <span className="radio__control-mark" />
-              <SModalSortInputDescription>По алфавиту</SModalSortInputDescription>
+              <SModalSortInputDescription>{LSortPopupAlphButton[language]}</SModalSortInputDescription>
               </SModalSortLabel>
             </li>
             <li>
@@ -68,7 +72,7 @@ function SortPopup({handelShowHideSortWindow: handleShowHideSortWindow}:SortPopu
                   onChange={() => handleFilterChange("birthday")}
                 />
                 <span className="radio__control-mark" />
-                <SModalSortInputDescription>По дню рождения</SModalSortInputDescription>
+                <SModalSortInputDescription>{LSortPopupDateButton[language]}</SModalSortInputDescription>
               </SModalSortLabel>
             </li>
           </SModalSortList>

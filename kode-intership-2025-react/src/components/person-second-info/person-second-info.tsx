@@ -2,6 +2,7 @@ import { JSX } from "react";
 import { formatAge,  formatDate } from "../../utils";
 import { Person } from "../../types/person";
 import { SPersonSecondInfoBirthday, SPersonSecondInfoBirthdayFavorite, SPersonSecondInfoTelephone, SPersonSecondInfoWrapper, SPersonSecondInfoSVG } from "./person-second-info-style";
+import { useAppSelector } from "../../store/hooks";
 
 
 
@@ -12,6 +13,8 @@ type PersonSecondInfoProps = {
 
 
 function PersonSecondInfo({person}: PersonSecondInfoProps):JSX.Element {
+
+    const language = useAppSelector((state) => state.utility.language);
     return(
           <section>
             <SPersonSecondInfoWrapper>
@@ -29,9 +32,9 @@ function PersonSecondInfo({person}: PersonSecondInfoProps):JSX.Element {
 
                     />
                   </SPersonSecondInfoSVG>
-                  <span>{formatDate(person.birthday)}</span>
+                  <span>{formatDate(person.birthday, language)}</span>
                 </SPersonSecondInfoBirthdayFavorite>
-                <span className="person__second-info-birthday-total-year">{formatAge(person.birthday)}</span>
+                <span className="person__second-info-birthday-total-year">{formatAge(person.birthday, language)}</span>
               </SPersonSecondInfoBirthday>
               <SPersonSecondInfoTelephone>
                 <SPersonSecondInfoSVG
@@ -46,7 +49,7 @@ function PersonSecondInfo({person}: PersonSecondInfoProps):JSX.Element {
 
                   />
                 </SPersonSecondInfoSVG>
-                <span>{person.phone}</span>
+                <a href={`tel:${person.phone}`}>{person.phone}</a>
               </SPersonSecondInfoTelephone>
             </SPersonSecondInfoWrapper>
           </section>
