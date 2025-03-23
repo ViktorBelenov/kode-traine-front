@@ -16,6 +16,8 @@ function JobList():JSX.Element {
   const filterBy = useAppSelector((state) => state.people.filterBy);
   const status = useAppSelector((state) => state.peopleStorage.status);
 
+  const language = useAppSelector((state) => state.utility.language);
+
   const handleFilterChange = (filterBy: TFilter) => {
     dispatch(setFilterBy(filterBy));
     dispatch(fetchPeople(filterBy));
@@ -31,7 +33,7 @@ function JobList():JSX.Element {
               onClick={() => handleFilterChange(key as TFilter)}
               disabled={status==="loading" || status==='idle'} 
               >
-              {value.title}
+              {language === 'rus' ? value.title : value.titleEn}
             </SJobListButton>
           </li>
         ))}
