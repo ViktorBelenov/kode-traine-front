@@ -11,7 +11,7 @@ import { useAppSelector, useAppDispatch } from './store/hooks.ts';
 
 import ROUTES from './const';
 import { GlobalStyle } from './style/global.ts';
-import { setTheme } from './store/themeSlice.ts';
+import { setTheme } from './store/utilitySlice.ts';
 import { useEffect } from 'react';
 import { setOnlineStatus, updateAfterOffline } from './store/peopleStorageSlice.ts';
 
@@ -60,7 +60,7 @@ function App() {
     return () => window.removeEventListener("change", checkTheme);
   }, [dispatch]);
 
-  const theme = useAppSelector((state) => state.theme.theme)
+  const theme = useAppSelector((state) => state.utility.theme)
 
   return (
     <BrowserRouter>

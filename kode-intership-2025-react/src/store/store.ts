@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import peopleReducer from './peopleSlice';
-import themeReducer from './themeSlice';
+import utilityReducer from './utilitySlice';
 import peopleStorageReducer from './peopleStorageSlice';
 
 export const store = configureStore ({
   reducer:{
     people: peopleReducer,
-    theme: themeReducer,
+    utility: utilityReducer,
     peopleStorage: peopleStorageReducer,
   }
 });

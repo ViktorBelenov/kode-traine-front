@@ -2,10 +2,10 @@ import { JSX, ChangeEvent } from "react";
 
 import { SThemeSwitchLabel, SThemeSlider, SThemeSwitchInput } from "./theme-switch-style";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { setTheme } from "../../store/themeSlice";
+import { setTheme } from "../../store/utilitySlice";
 
 function ThemeSwitch ():JSX.Element {
-    const theme = useAppSelector((state)=> state.theme.theme)
+    const theme = useAppSelector((state)=> state.utility.theme)
     const dispatch = useAppDispatch();
 
 

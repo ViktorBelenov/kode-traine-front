@@ -7,6 +7,7 @@ import { SSearch, SSearchIcon, SSearchFieldContainer, SSearchTitle, SSearchWrapp
 
 import SortPopup from "../sort-popup/sort-popup";
 import ThemeSwitch from "../theme-switch/theme-switch";
+import LanguageSwitch from "../language-switch/language-switch";
 
 function Search():JSX.Element {
     const dispatch = useAppDispatch();
@@ -51,6 +52,7 @@ function Search():JSX.Element {
         <SSearchWrapper>
             <SSearchTitleWrapper>
                 <SSearchTitle>Поиск</SSearchTitle>
+                <LanguageSwitch></LanguageSwitch>
                 <ThemeSwitch></ThemeSwitch>
             </SSearchTitleWrapper>
             <SSearchFieldContainer $isOffline={onlineStatus === 'offline' ? true : false}>
