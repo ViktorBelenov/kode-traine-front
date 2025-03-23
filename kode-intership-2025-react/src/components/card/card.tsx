@@ -22,6 +22,7 @@ type CardProps = {
 
 function Card ({person, type}:CardProps):JSX.Element {
   const sortBy = useAppSelector((state) => state.people.sortBy);
+  const language = useAppSelector((state) => state.utility.language)
     
     if(type === 'loading') {
       return (
@@ -34,7 +35,7 @@ function Card ({person, type}:CardProps):JSX.Element {
     
       return (
         <SCardBirthdayContainer>
-          <SCardBirthdayText>{getHumanDate(person.birthday)}</SCardBirthdayText>
+          <SCardBirthdayText>{getHumanDate(person.birthday, language)}</SCardBirthdayText>
         </SCardBirthdayContainer>
       );
     };

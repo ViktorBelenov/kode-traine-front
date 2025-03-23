@@ -1,15 +1,26 @@
-const Month = [
+import { TLanguage } from "./types/utils";
+
+const MonthRu = [
     "янв", "фев", "мар", "апр", "май", "июн", 
     "июл", "авг", "сен", "окт", "ноя", "дек"
   ];
 
+  const MonthEng = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
 
-export function getHumanDate(date:string):string {
+
+
+export function getHumanDate(date:string, language: TLanguage):string {
     const objDate = new Date(date);
     const month = objDate.getMonth();
     const day = objDate.getDate();
+    if(language === 'rus') {
+      return `${day} ${MonthRu[month]}`
+    }
 
-    return `${day} ${Month[month]}`;
+    return `${day} ${MonthEng[month]}`;
   }
 
   

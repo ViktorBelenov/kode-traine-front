@@ -9,18 +9,18 @@ import SortPopup from "../sort-popup/sort-popup";
 import ThemeSwitch from "../theme-switch/theme-switch";
 import LanguageSwitch from "../language-switch/language-switch";
 
+import { LSearchText, LDisclaimerText, LSearchPlaceholder } from "./search-language";
+
 function Search():JSX.Element {
     const dispatch = useAppDispatch();
     const sortBy = useAppSelector((state) => state.people.sortBy);
     const searchBy = useAppSelector((state) => state.people.searchBy);
     const status = useAppSelector((state) => state.peopleStorage.status);
+    const language = useAppSelector((state) => state.utility.language);
 
     const onlineStatus = useAppSelector((state) => state.peopleStorage.online);
 
-    const disclaimerText = {
-        offline:'Не могу обновить данные. Проверь соединение с интернетом.',
-        loading:'Секундочку, гружусь...'
-    }
+    const disclaimerText = LDisclaimerText[language];
 
     const disclaimerType = status === 'loading' ? 'loading' : 'offline';
 
@@ -51,7 +51,7 @@ function Search():JSX.Element {
     <SSearch $isOffline={onlineStatus === 'offline' ? true : false} $isLoading={onlineStatus === 'loading'}>
         <SSearchWrapper>
             <SSearchTitleWrapper>
-                <SSearchTitle>Поиск</SSearchTitle>
+                <SSearchTitle>{LSearchText[language]}</SSearchTitle>
                 <LanguageSwitch></LanguageSwitch>
                 <ThemeSwitch></ThemeSwitch>
             </SSearchTitleWrapper>
@@ -64,7 +64,7 @@ function Search():JSX.Element {
                 <SSearchInput
                     type="text"
                     className="search-input"
-                    placeholder="Введи имя, тег, почту..."
+                    placeholder={LSearchPlaceholder[language]}
                     value={searchBy}
                     onChange={(e) => dispatch(setSearchBy(e.target.value))}
                     ref={input}

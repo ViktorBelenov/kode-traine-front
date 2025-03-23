@@ -16,7 +16,6 @@ function MainContent ():JSX.Element {
     const filterType = useAppSelector((state)=> state.people.filterBy)
   
     useEffect(() => {
-      console.log('gergerg')
       dispatch(fetchPeople(filterType));
     }, [dispatch, filterType]);
     
