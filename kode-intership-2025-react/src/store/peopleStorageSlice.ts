@@ -91,7 +91,7 @@ const peopleStorageSlice = createSlice({
             })
             .addCase(fetchPeople.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                state.online = 'online';
+                if(state.online === 'loading')state.online = 'online';
                 if (!action.payload) return;
                     const { key, data } = action.payload;
                     const newCache = {
