@@ -2,7 +2,7 @@ import { JSX, useEffect } from "react";
 
 
 import { useAppDispatch,  useAppSelector } from "../../store/hooks";
-// import { fetchPeople } from "../../store/peopleSlice";
+
 
 import { SEmployWrapper } from "./main-content-style";
 
@@ -16,6 +16,7 @@ function MainContent ():JSX.Element {
     const filterType = useAppSelector((state)=> state.people.filterBy)
   
     useEffect(() => {
+      console.log('gergerg')
       dispatch(fetchPeople(filterType));
     }, [dispatch, filterType]);
     

@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     const handleOnline = () => {
-      dispatch(setOnlineStatus("online"));
+      dispatch(setOnlineStatus("loading"));
       dispatch(updateAfterOffline());
     };
   

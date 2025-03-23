@@ -1,7 +1,7 @@
 import { JSX } from "react";
 
 import { useAppDispatch } from "../../store/hooks";
-// import { fetchPeople } from "../../store/peopleSlice";
+
 import { fetchPeople } from "../../store/peopleStorageSlice";
 
 import { SError, SErrorTitle, SErrorPromise, SErrorButton } from "./error-style";

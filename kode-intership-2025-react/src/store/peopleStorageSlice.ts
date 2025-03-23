@@ -19,7 +19,7 @@ type CacheItem = {
 
 type peopleStorageState = {
     status: "idle" | "loading" | "succeeded" | "failed";
-    online: "idle" |"online" | "offline"
+    online: "idle" |"online" | "offline" | 'loading'
     cache:Record<FilterBy, CacheItem>;
 }
 
@@ -36,9 +36,7 @@ type ResponseType = {
 export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filterBy: FilterBy,{getState, dispatch}
 ) => {
     const state = getState();
-    const oldPeople = state.peopleStorage.cache['all'].data;
     const onlineStatus = state.peopleStorage.online;
-
     const cacheKey = filterBy;
     const cachedData = state.peopleStorage.cache[cacheKey];
     const isCacheValid = cachedData && (Date.now() - cachedData.timestamp < 5 * 60 * 1000);
@@ -50,8 +48,12 @@ export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filte
       }
 
     if(onlineStatus === 'offline'){
-        dispatch(filterOffline(oldPeople));
-        return undefined;
+        const cachedAll = state.peopleStorage.cache["all"];
+    
+        if (cachedAll && cachedAll.data) {
+            dispatch(filterOffline(cachedAll.data));
+            return undefined;
+        }
     }
 
 
@@ -89,6 +91,7 @@ const peopleStorageSlice = createSlice({
             })
             .addCase(fetchPeople.fulfilled, (state, action) => {
                 state.status = "succeeded";
+                state.online = 'online';
                 if (!action.payload) return;
                     const { key, data } = action.payload;
                     const newCache = {

@@ -48,7 +48,7 @@ function Search():JSX.Element {
     const isPopupIconIsActive = sortBy === 'birthday';
     return (
     <>
-    <SSearch $isOffline={onlineStatus === 'offline' ? true : false} $isLoading={status === 'loading'}>
+    <SSearch $isOffline={onlineStatus === 'offline' ? true : false} $isLoading={onlineStatus === 'loading'}>
         <SSearchWrapper>
             <SSearchTitleWrapper>
                 <SSearchTitle>Поиск</SSearchTitle>
@@ -77,7 +77,7 @@ function Search():JSX.Element {
                 </SSearchIconPopup>
             </SSearchPopupButton>
             </SSearchFieldContainer>
-            <SSearchDisclaimer $isShown={onlineStatus === 'offline' || status === 'loading' ? true : false}>{disclaimerText[disclaimerType]}</SSearchDisclaimer>
+            <SSearchDisclaimer $isShown={onlineStatus === 'offline' || onlineStatus === 'loading' ? true : false}>{disclaimerText[disclaimerType]}</SSearchDisclaimer>
         </SSearchWrapper>
     </SSearch>
     {isSortWindowActive ?  <SortPopup handelShowHideSortWindow={handelShowHideSortWindow} /> : ''}
