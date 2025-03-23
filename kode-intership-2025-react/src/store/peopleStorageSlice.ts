@@ -18,14 +18,12 @@ type CacheItem = {
   };
 
 type peopleStorageState = {
-    people: Person[];
     status: "idle" | "loading" | "succeeded" | "failed";
     online: "idle" |"online" | "offline"
     cache:Record<FilterBy, CacheItem>;
 }
 
 const initialState: peopleStorageState = {
-    people: JSON.parse(localStorage.getItem("people") || "[]"),
     status: "idle",
     online: "idle",
     cache: JSON.parse(localStorage.getItem("cache") || "{}") 
@@ -38,7 +36,7 @@ type ResponseType = {
 export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filterBy: FilterBy,{getState, dispatch}
 ) => {
     const state = getState();
-    const oldPeople = state.peopleStorage.people;
+    const oldPeople = state.peopleStorage.cache['all'].data;
     const onlineStatus = state.peopleStorage.online;
 
     const cacheKey = filterBy;
@@ -48,26 +46,24 @@ export const fetchPeople = createThunk("peopleStorage/fetchPeople", async (filte
     
     if (isCacheValid) {
         dispatch(updateCopyPeople(cachedData.data));
-        return cachedData.data;
+        return undefined;
       }
 
-
-    if(onlineStatus !== 'offline') {
-        const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${filterBy}`);
-        const people = response.data.items;
-
-        localStorage.setItem("people", JSON.stringify(people));
-
-        dispatch(updateCache({ key: cacheKey, data: people }));
-        dispatch(updateCopyPeople(people));
-        return people;
+    if(onlineStatus === 'offline'){
+        dispatch(filterOffline(oldPeople));
+        return undefined;
     }
 
-    dispatch(filterOffline(oldPeople));
 
+    
+    const response = await axios.get<ResponseType>(`${ALL_USERS_END_POINT}${filterBy}`);
+    const people = response.data.items;
 
-    return oldPeople;
+    localStorage.setItem("people", JSON.stringify(people));
 
+    dispatch(updateCopyPeople(people)); 
+    return { key: cacheKey, data: people };       
+    
  });
 
  export const updateAfterOffline = createThunk("peopleStorage/updateAfterOffline", async (_, { dispatch }) => {
@@ -84,15 +80,6 @@ const peopleStorageSlice = createSlice({
     reducers: {
         setOnlineStatus: (state, action) => {
             state.online = action.payload;
-        },
-        updateCache: (state, action) => {
-            const { key, data } = action.payload;
-            const newCache = {
-                ...state.cache,
-                [key]: { data, timestamp: Date.now() }
-            };
-            state.cache = newCache;
-            localStorage.setItem("cache", JSON.stringify(newCache));
         }
     },
     extraReducers: (builder) => {
@@ -101,15 +88,23 @@ const peopleStorageSlice = createSlice({
               state.status = "loading";
             })
             .addCase(fetchPeople.fulfilled, (state, action) => {
-              state.status = "succeeded";
-              state.people = action.payload;
-            })
+                state.status = "succeeded";
+                if (!action.payload) return;
+                    const { key, data } = action.payload;
+                    const newCache = {
+                        ...state.cache,
+                        [key]: { data, timestamp: Date.now() }
+                    };
+                    state.cache = newCache;
+                    localStorage.setItem("cache", JSON.stringify(newCache));                    
+                }              
+            )
             .addCase(fetchPeople.rejected, (state) => {
               state.status = "failed";
             });
         },
   });
 
-export const { setOnlineStatus, updateCache }  = peopleStorageSlice.actions;
+export const { setOnlineStatus }  = peopleStorageSlice.actions;
 export default peopleStorageSlice.reducer;
 

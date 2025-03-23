@@ -23,7 +23,7 @@ export const searchPeople = createThunk(
   "people/searchPeople",
   async (_, { getState, dispatch }) => {
     const state = getState();
-    const people = state.peopleStorage.people;
+    const people = state.peopleStorage.cache.all.data;
     const searchBy = state.people.searchBy;
 
 
