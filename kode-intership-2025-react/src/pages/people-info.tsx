@@ -19,6 +19,9 @@ function PeopleInfo():JSX.Element {
     const status = useAppSelector((state) => state.peopleStorage.status);
     
     const currentPerson = people.find((person)=> person.id === id);
+    console.log(currentPerson);
+    console.log(status);
+
 
     useEffect(() => {
         if (!people.length) {
@@ -28,7 +31,7 @@ function PeopleInfo():JSX.Element {
 
 
 
-    if(status === 'idle' || status==='loading') {
+    if((status === 'idle' || status==='loading') && !currentPerson) {
         return(
             <LoadingStub />
         )
